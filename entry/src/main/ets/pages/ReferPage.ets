@@ -2,6 +2,7 @@ import router from '@ohos.router';
 import { Card } from '../common/bean/NavItem';
 import { BreakpointSystem, BreakpointState } from '../common/breakpoint/breakpointsystem'
 
+
 /**
  * Detail page to display more information.
  */
@@ -10,6 +11,13 @@ import { BreakpointSystem, BreakpointState } from '../common/breakpoint/breakpoi
 export struct ReferPage {
   private controller: TabsController = new TabsController()
   private swiperController: SwiperController = new SwiperController()
+
+  //分布式歌曲同步信息
+  @StorageLink('trackId') trackId:string = '';
+  @StorageLink('position') positionA:number = 0;
+  @StorageLink('isPlaying') isPlaying:boolean = false;
+
+
   @State headerSliderX: BreakpointState<Length> = BreakpointState.of({ sm: "0%", md: "91%", lg: "91%" })
   @State headerSearchX: BreakpointState<Length> = BreakpointState.of({ sm: "9%", md: "0%", lg: "0%" })
   @State headerSearchWidth: BreakpointState<Length> = BreakpointState.of({ sm: "85%", md: "40%", lg: "40%" })
@@ -100,6 +108,7 @@ export struct ReferPage {
     BreakpointSystem.getInstance().attach(this.headerSearchX)
     BreakpointSystem.getInstance().attach(this.headerSearchWidth)
     BreakpointSystem.getInstance().start()
+
   }
 
   aboutToDisappear() {
@@ -108,6 +117,7 @@ export struct ReferPage {
     BreakpointSystem.getInstance().detach(this.headerSearchX)
     BreakpointSystem.getInstance().detach(this.headerSearchWidth)
     BreakpointSystem.getInstance().stop()
+
   }
 
   @Builder

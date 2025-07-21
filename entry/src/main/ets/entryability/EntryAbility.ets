@@ -4,7 +4,6 @@ import { window } from '@kit.ArkUI';
 import { distributedDataObject } from '@kit.ArkData';
 import { distributedDeviceManager } from '@kit.DistributedServiceKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-
 /**
  * Lift cycle management of Ability.
  */

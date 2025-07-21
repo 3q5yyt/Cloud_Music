@@ -1,7 +1,9 @@
 import router from '@ohos.router';
 import { Card } from '../common/bean/NavItem';
 import { BreakpointSystem, BreakpointState } from '../common/breakpoint/breakpointsystem'
-
+import { common } from '@kit.AbilityKit';
+import AVPlayerDemo from '../common/mediaPlayer/AVPlayerDemo'
+import { media } from '@kit.MediaKit';
 
 /**
  * Detail page to display more information.
@@ -11,12 +13,12 @@ import { BreakpointSystem, BreakpointState } from '../common/breakpoint/breakpoi
 export struct ReferPage {
   private controller: TabsController = new TabsController()
   private swiperController: SwiperController = new SwiperController()
-
+  private avplayerController:AVPlayerDemo = new AVPlayerDemo();
   //分布式歌曲同步信息
-  @StorageLink('trackId') trackId:string = '';
-  @StorageLink('position') positionA:number = 0;
-  @StorageLink('isPlaying') isPlaying:boolean = false;
-
+  private appContext: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
+  @StorageLink('trackId') trackId: string = '';
+  @StorageLink('position') positionA: number = 0;
+  @StorageLink('isPlaying') isPlaying: boolean = false;
 
   @State headerSliderX: BreakpointState<Length> = BreakpointState.of({ sm: "0%", md: "91%", lg: "91%" })
   @State headerSearchX: BreakpointState<Length> = BreakpointState.of({ sm: "9%", md: "0%", lg: "0%" })
@@ -108,6 +110,7 @@ export struct ReferPage {
     BreakpointSystem.getInstance().attach(this.headerSearchX)
     BreakpointSystem.getInstance().attach(this.headerSearchWidth)
     BreakpointSystem.getInstance().start()
+    this.avplayerController.init()
 
   }
 
@@ -158,7 +161,7 @@ export struct ReferPage {
 
 
         Column() {
-          Text(this.tabPosition.value?"下午好":"精选推荐")
+          Text(this.tabPosition.value ? "下午好" : "精选推荐")
             .fontSize(18)
             .fontColor('#000')
             .fontWeight(800)
@@ -215,6 +218,15 @@ export struct ReferPage {
                 }
 
               }
+              .onClick(() => {
+
+                this.avplayerController.avPlayer?.play()
+                //pause seek
+
+                // console.log("AVPLAYER")
+
+
+              })
             })
 
 
@@ -288,7 +300,13 @@ export struct ReferPage {
     }
   }
 
+  @Builder
+  Player() {
+
+  }
+
   build() {
+
     Column() {
       RelativeContainer() {
         Image($r("app.media.slider"))
@@ -319,10 +337,8 @@ export struct ReferPage {
       }
       .padding({ left: 8, right: 8 })
       .height(40)
+
       // .margin({bottom:this.marGin.value})
-
-
-
 
       if (this.tabPosition.value) {
         this.TabMyContent()
@@ -345,265 +361,7 @@ export struct ReferPage {
           .tabBar(this.TabTextBuilder('博客', 2))
 
           TabContent() {
-            Scroll() {
-              Column() {
-                Flex({
-                  direction: FlexDirection.Row,
-                  justifyContent: FlexAlign.SpaceAround,
-                  alignItems: ItemAlign.Center
-                }) {
-                  Column() {
-                    Image($r('app.media.nav_icon1'))
-                      .width(43)
-                      .height(43)
-                      .margin({ bottom: 9 })
-                    Text('每日推荐').fontSize(12).fontColor('#000')
-                  }
-                  .onClick(() => {
-                    console.log("Daliy")
-                    router.pushUrl({
-                      url: 'pages/DailyRecommendPage'
-                    })
-                  })
-
-                  Column() {
-                    Image($r('app.media.nav_icon1'))
-                      .width(43)
-                      .height(43)
-                      .margin({ bottom: 9 })
-                    Text('歌单').fontSize(12).fontColor('#000')
-                  }
-
-                  Column() {
-                    Image($r('app.media.nav_icon1'))
-                      .width(43)
-                      .height(43)
-                      .margin({ bottom: 9 })
-                    Text('排行榜').fontSize(12).fontColor('#000')
-                  }
-
-                  Column() {
-                    Image($r('app.media.nav_icon1'))
-                      .width(43)
-                      .height(43)
-                      .margin({ bottom: 9 })
-                    Text('电台').fontSize(12).fontColor('#000')
-                  }
-                }
-                .height(98)
-                .margin({ top: 9 })
-
-                Column() {
-                  Flex({
-                    direction: FlexDirection.Row,
-                    justifyContent: FlexAlign.SpaceBetween,
-                    alignItems: ItemAlign.Center
-                  }) {
-                    Text('推荐歌单')
-                      .fontSize(16)
-                      .fontColor('#000')
-                      .fontWeight(800)
-                    Text('歌单广场')
-                      .padding({
-                        top: 2,
-                        right: 6,
-                        bottom: 2,
-                        left: 2
-                      })
-                      .border({ width: 1, color: '#ccc' })
-                      .borderRadius(18)
-                      .fontSize(10)
-                      .fontColor('#000')
-                  }
-                  .padding({ left: 9, right: 9 })
-
-                  Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap, justifyContent: FlexAlign.SpaceAround }) {
-                    Column() {
-                      Image('https://p1.music.126.net/LIhxL7p5UkYX5NmHL8vhzQ==/18869818556322650.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('听一首把自己感动的歌').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-
-                    Column() {
-                      Image('https://p1.music.126.net/zpmOTZw533nltCQJtXC8Rg==/109951168215962168.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('我知道风里有诗，那正是民谣的歌').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-
-                    Column() {
-                      Image('https://p1.music.126.net/qA0W0aER7LxB99iTOMQZcA==/109951166153828602.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('[国电新势力] 网易电子音乐人精选').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-
-                    Column() {
-                      Image('https://p1.music.126.net/LIhxL7p5UkYX5NmHL8vhzQ==/18869818556322650.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('听一首把自己感动的歌').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-
-                    Column() {
-                      Image('https://p1.music.126.net/zpmOTZw533nltCQJtXC8Rg==/109951168215962168.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('我知道风里有诗，那正是民谣的歌').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-
-                    Column() {
-                      Image('https://p1.music.126.net/qA0W0aER7LxB99iTOMQZcA==/109951166153828602.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('[国电新势力] 网易电子音乐人精选').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-                  }
-                  .margin({ top: 13 })
-                }
-
-                Column() {
-                  Flex({
-                    direction: FlexDirection.Row,
-                    justifyContent: FlexAlign.SpaceBetween,
-                    alignItems: ItemAlign.Center
-                  }) {
-                    Text('新碟')
-                      .fontSize(16)
-                      .fontColor('#000')
-                      .fontWeight(800)
-                    Text('更多新碟')
-                      .padding({
-                        top: 2,
-                        right: 6,
-                        bottom: 2,
-                        left: 2
-                      })
-                      .border({ width: 1, color: '#ccc' })
-                      .borderRadius(18)
-                      .fontSize(10)
-                      .fontColor('#000')
-                  }
-                  .padding({ left: 9, right: 9 })
-
-                  Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap, justifyContent: FlexAlign.SpaceAround }) {
-                    Column() {
-                      Image('https://p1.music.126.net/Ik30xAtj2MQgCU5jE6K6Ww==/109951169052034633.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('暗流').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-
-                    Column() {
-                      Image('https://p1.music.126.net/UGP6oPJ35Ab_mvBljtzoPA==/109951169067369971.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('도화').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-
-                    Column() {
-                      Image('https://p1.music.126.net/AWcDI5wc9fkS2bZt6wIm-Q==/109951163212638897.jpg')
-                        .width(107)
-                        .margin({ bottom: 4 })
-                      Text('Practice Make Perfect').fontSize(12).fontColor('#000')
-                    }
-                    .width(107)
-                    .margin({ bottom: 13 })
-                  }
-                  .margin({ top: 13 })
-                }
-
-                Column() {
-                  Flex({
-                    direction: FlexDirection.Row,
-                    justifyContent: FlexAlign.SpaceBetween,
-                    alignItems: ItemAlign.Center
-                  }) {
-                    Text('最新MV')
-                      .fontSize(16)
-                      .fontColor('#000')
-                      .fontWeight(800)
-                    Text('查看更多')
-                      .padding({
-                        top: 2,
-                        right: 6,
-                        bottom: 2,
-                        left: 2
-                      })
-                      .border({ width: 1, color: '#ccc' })
-                      .borderRadius(18)
-                      .fontSize(10)
-                      .fontColor('#000')
-                  }
-                  .padding({ left: 9, right: 9 })
-
-                  Column() {
-                    Image('https://p1.music.126.net/qA0W0aER7LxB99iTOMQZcA==/109951166153828602.jpg')
-                      .width(337)
-                      .height(213)
-                      .margin({ top: 9, bottom: 4 })
-                      .borderRadius(12)
-                    Text('덤더럼(Dumhdurum)')
-                      .fontSize(16)
-                      .fontColor('#000')
-                      .fontWeight(800)
-                      .height(42)
-                      .margin({ left: 12 })
-                  }
-                  .borderRadius({ topLeft: 12, topRight: 12 })
-                  .backgroundColor('#efefef')
-                  .alignItems(HorizontalAlign.Start)
-                  .width(337)
-                  .margin({ bottom: 13 })
-
-                  Flex({
-                    direction: FlexDirection.Row,
-                    justifyContent: FlexAlign.SpaceBetween,
-                    alignItems: ItemAlign.Center
-                  }) {
-                    Row() {
-                      Image($r('app.media.like'))
-                        .width(17)
-                        .height(20)
-                      Text('220000')
-                        .fontSize(16)
-                        .fontColor('#000')
-                        .margin({ left: 2, right: 4 })
-                      Image($r('app.media.comment'))
-                        .width(17)
-                        .height(20)
-                      Text('320000')
-                        .fontSize(16)
-                        .fontColor('#000')
-                        .margin({ left: 2 })
-                    }
-                    .alignItems(VerticalAlign.Center)
-
-                    Image($r('app.media.more_menu'))
-                      .width(12)
-                      .height(14)
-                  }
-                  .padding({ left: 20, right: 20 })
-                }
-              }
-            }
+            Text('听书内容').fontSize(35).fontColor('#888')
           }
           .height('100%')
           .tabBar(this.TabTextBuilder('听书', 3))
@@ -620,5 +378,6 @@ export struct ReferPage {
     }
     .justifyContent(FlexAlign.Start)
     .height("100%")
+
   }
 }

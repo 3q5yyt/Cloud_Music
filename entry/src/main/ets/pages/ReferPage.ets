@@ -2,7 +2,7 @@ import router from '@ohos.router';
 import { Card } from '../common/bean/NavItem';
 import { BreakpointSystem, BreakpointState } from '../common/breakpoint/breakpointsystem'
 import { common } from '@kit.AbilityKit';
-import AVPlayerDemo from '../common/mediaPlayer/AVPlayerDemo'
+
 import { media } from '@kit.MediaKit';
 
 /**
@@ -13,13 +13,8 @@ import { media } from '@kit.MediaKit';
 export struct ReferPage {
   private controller: TabsController = new TabsController()
   private swiperController: SwiperController = new SwiperController()
-  private avplayerController:AVPlayerDemo = new AVPlayerDemo();
   //分布式歌曲同步信息
   private appContext: common.UIAbilityContext = this.getUIContext().getHostContext() as common.UIAbilityContext;
-  @StorageLink('trackId') trackId: string = '';
-  @StorageLink('position') positionA: number = 0;
-  @StorageLink('isPlaying') isPlaying: boolean = false;
-
   @State headerSliderX: BreakpointState<Length> = BreakpointState.of({ sm: "0%", md: "91%", lg: "91%" })
   @State headerSearchX: BreakpointState<Length> = BreakpointState.of({ sm: "9%", md: "0%", lg: "0%" })
   @State headerSearchWidth: BreakpointState<Length> = BreakpointState.of({ sm: "85%", md: "40%", lg: "40%" })
@@ -47,8 +42,8 @@ export struct ReferPage {
     {
       backImage: 'http://p2.music.126.net/uKZWPjFOFgL-MhmcW7dqYw==/109951171009440811.jpg?param=140y140',
       svg: $r("app.media.die"),
-      title1: "场景漫游",
-      title2: "多样场景无限畅听"
+      title1: "新歌新碟",
+      title2: "热门新歌抢先听"
     }
 
   ]
@@ -56,8 +51,8 @@ export struct ReferPage {
     {
       backImage: "http://p1.music.126.net/Do7cil27exwEB5iwwP7YWQ==/109951169078154034.jpg?imageView=1&thumbnail=800y800&enlarge=1%7CimageView=1&watermark&type=1&image=b2JqL3c1bkRrTUtRd3JMRGpEekNtOE9tLzMxNjg5ODI0MTIzL2EyMGQvMjAyMzEwMjMxNzExNDQveDI3MzE3MDA3MzA3MDQzNDMucG5n&dx=0&dy=0%7Cwatermark&type=1&image=b2JqL3dvbkRsc0tVd3JMQ2xHakNtOEt4LzI3NjEwNDk3MDYyL2VlOTMvOTIxYS82NjE4LzdhMDc5ZDg0NTYyMDAwZmVkZWJmMjVjYjE4NjhkOWEzLnBuZw==&dx=0&dy=0%7CimageView=1&thumbnail=140y140&?param=140y140",
       svg: $r("app.media.die"),
-      title1: "场景漫游",
-      title2: "多样场景无限畅听"
+      title1: "K-Pop",
+      title2: "轻柔演绎慵懒韩流"
     },
     {
       backImage: "http://p1.music.126.net/KGJgB364FdOfFjvlQCFTPg==/109951168968318913.jpg?imageView=1&thumbnail=800y800&enlarge=1%7CimageView=1&watermark&type=1&image=b2JqL3c1bkRrTUtRd3JMRGpEekNtOE9tLzM2NjM3MDMwNjMzL2Q4MmMvMjAyNDUxMzE3MjE4L3g5NTQxNzE4MjcwNDY4ODU4LnBuZw==&dx=0&dy=0%7Cwatermark&type=1&image=b2JqL3dvbkRsc0tVd3JMQ2xHakNtOEt4LzI3NjEwNDk3MDYyL2VlOTMvOTIxYS82NjE4LzdhMDc5ZDg0NTYyMDAwZmVkZWJmMjVjYjE4NjhkOWEzLnBuZw==&dx=0&dy=0%7CimageView=1&thumbnail=140y140&?param=140y140",
@@ -110,11 +105,12 @@ export struct ReferPage {
     BreakpointSystem.getInstance().attach(this.headerSearchX)
     BreakpointSystem.getInstance().attach(this.headerSearchWidth)
     BreakpointSystem.getInstance().start()
-    this.avplayerController.init()
+
 
   }
 
   aboutToDisappear() {
+    this.appContext.terminateSelf();
     BreakpointSystem.getInstance().detach(this.tabPosition)
     BreakpointSystem.getInstance().detach(this.headerSliderX)
     BreakpointSystem.getInstance().detach(this.headerSearchX)
@@ -219,11 +215,9 @@ export struct ReferPage {
 
               }
               .onClick(() => {
-
-                this.avplayerController.avPlayer?.play()
-                //pause seek
-
-                // console.log("AVPLAYER")
+                if (index === 2) {
+                  AppStorage.setOrCreate('playBlockPosition', this.tabPosition.value?-745:-770)
+                }
 
 
               })
@@ -298,11 +292,6 @@ export struct ReferPage {
         .alignItems(HorizontalAlign.Start)
       }
     }
-  }
-
-  @Builder
-  Player() {
-
   }
 
   build() {

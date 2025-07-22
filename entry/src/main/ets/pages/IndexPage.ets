@@ -217,6 +217,17 @@ struct IndexPage {
 
           }.width("100%")
         }
+        GridCol({span:{sm:0,md:6,lg:6}}){
+          Column(){
+            Text("本歌曲无歌词")
+              .fontColor("#B2BDBF")
+              .fontSize(30)
+          }.width("100%")
+          .height("100%")
+          .justifyContent(FlexAlign.Center)
+
+
+        }
       }
     }
     .backgroundColor("#43545B")

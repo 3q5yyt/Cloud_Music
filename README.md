@@ -24,7 +24,12 @@
 
 
 
-### 部分功能效果图
+### 1.2 分布式数据同步
+| 设备类型       | 技术实现                          | 演示截图               |
+|----------------|-----------------------------------|------------------------------|
+| **手机**       | distributedDataObject             | ![手机歌单界面](https://github.com/user-attachments/assets/070b63aa-1e7c-4f59-bcd8-2ea8069e0845)|
+| **平板**       | distributedDataObject     | ![平板界面](https://github.com/user-attachments/assets/2013a666-603a-474d-a224-2fb9d8683ffb) |
+
 
 
 

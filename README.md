@@ -16,7 +16,7 @@
 |----------------|-----------------------------------|------------------------------|--------------------|
 | **手机**       | 单列瀑布流+播放界面              | ![手机歌单界面](https://github.com/user-attachments/assets/bde5b0c3-17df-4dbd-a77d-e0b9faf6b59c)|![手机歌单界面](https://github.com/user-attachments/assets/e7373341-6165-4a80-9061-6de46955c474)|
 
-| **平板**       | 双栏设计（歌单导航+播放界面）     | ![平板界面](https://github.com/user-attachments/assets/23c571b5-b78d-4831-8f08-17c9a4998649) |  ![平板界面](https://github.com/user-attachments/assets/0a6cd30e-5196-4f93-b8df-68d17993204b)   |
+| **平板**       | 双栏设计（歌单导航+播放界面）     | ![平板界面](https://github.com/user-attachments/assets/23c571b5-b78d-4831-8f08-17c9a4998649)![平板界面](https://github.com/user-attachments/assets/0a6cd30e-5196-4f93-b8df-68d17993204b)   |
 
 
 

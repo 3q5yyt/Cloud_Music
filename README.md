@@ -1,11 +1,10 @@
-# 网易云音乐
-🎅❄️🎶Optimization project
+# HarmonyMusic - 鸿蒙分布式音乐应用
 
-### 鸿蒙ArkTs仿网易云音乐
+![HarmonyOS](https://img.shields.io/badge/HarmonyOS-4.0-blue)  
+![ArkTS](https://img.shields.io/badge/ArkTS-1.0-orange)  
+![License](https://img.shields.io/badge/License-Apache--2.0-green)
 
-- [api来源](https://github.com/Binaryify/NeteaseCloudMusicApi)
-
-- [源码地址](https://github.com/linwu-hi/open_neteasy_cloud)
+**跨设备音乐体验革命*
 
 
 

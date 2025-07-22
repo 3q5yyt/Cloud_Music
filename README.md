@@ -14,7 +14,7 @@
 ### 1. 智能响应式布局
 | 设备类型       | 布局特点                          | 演示截图                      |
 |----------------|-----------------------------------|------------------------------|
-| **手机**       | 单列瀑布流+播放界面              | ![手机歌单界面](https://github.com/user-attachments/assets/bde5b0c3-17df-4dbd-a77d-e0b9faf6b59c[https://github.com/user-attachments/assets/bde5b0c3-17df-4dbd-a77d-e0b9faf6b59c])|
+| **手机**       | 单列瀑布流+播放界面              | ![手机歌单界面](https://github.com/user-attachments/assets/bde5b0c3-17df-4dbd-a77d-e0b9faf6b59c)|
 | **平板**       | 双栏设计（歌单导航+播放界面）       | ![平板界面](https://github.com/user-attachments/assets/23c571b5-b78d-4831-8f08-17c9a4998649) |
 
 

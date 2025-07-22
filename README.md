@@ -5,29 +5,24 @@
 ![License](https://img.shields.io/badge/License-Apache--2.0-green)
 
 **跨设备音乐体验革命*
+- 基于HarmonyOS的分布式音乐应用，完美适配手机/平板设备，实现网易云音乐核心功能
+
+> ⚠️ **注意**：由于模拟器限制，分布式同步功能需真实鸿蒙设备验证。
+
+## 🌟 核心亮点
+
+### 1. 智能响应式布局
+| 设备类型       | 布局特点                          | 演示截图                      |
+|----------------|-----------------------------------|------------------------------|
+| **手机**       | 单列瀑布流                        | ![手机界面](https://github.com/user-attachments/assets/bde5b0c3-17df-4dbd-a77d-e0b9faf6b59c) |
+| **平板**       | 双栏设计（歌单导航+内容区）       | ![平板界面](https://via.placeholder.com/600x400?text=Tablet+UI) |
 
 
+<img width="372" height="786" alt="屏幕截图 2025-07-22 110553" src="https://github.com/user-attachments/assets/bde5b0c3-17df-4dbd-a77d-e0b9faf6b59c" />
 
-
-### 功能介绍
-
-- 登陆
-- 首页
-- 每日推荐
-- 歌单广场
-- 排行榜
-- 云村热评
-- 视频
-- MV详情页
-- 我的
-- 电台模块【电台首页，电台详情, 电台排行榜】
-- 搜索【支持单曲，MV，专辑，歌单，电台】
-- 播放页【歌词，播放列表，上一首，下一首】
 
 ### 部分功能效果图
 
-![](https://github.com/linwu-hi/release-dev-offline/blob/main/docs/20231123164849.jpg)
-![](https://github.com/linwu-hi/release-dev-offline/blob/main/docs/20231123164921.jpg)
 
 
 

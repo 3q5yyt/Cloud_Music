@@ -1,7 +1,7 @@
 # HarmonyMusic - 鸿蒙分布式音乐应用
 
-![HarmonyOS](https://img.shields.io/badge/HarmonyOS-4.0-blue)  
-![ArkTS](https://img.shields.io/badge/ArkTS-1.0-orange)  
+![HarmonyOS](https://img.shields.io/badge/HarmonyOS-5.0-blue)  
+![ArkTS](https://img.shields.io/badge/ArkTS-1.1-orange)  
 ![License](https://img.shields.io/badge/License-Apache--2.0-green)
 
 **跨设备音乐体验革命*
